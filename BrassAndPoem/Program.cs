@@ -148,19 +148,16 @@ void DeleteProduct()
     Console.WriteLine("Please enter the name of the product you'd like to delete");
     string Response = Console.ReadLine().Trim();
     Product productToRemove = products.FirstOrDefault(p => p.Name.Equals(Response, StringComparison.OrdinalIgnoreCase));
-    foreach (Product product in products)
+    if (productToRemove != null)
     {
-        if (Response == product.Name)
-        {
-            products.Remove(productToRemove);
-            Console.WriteLine("Product deleted");
-            ReturnToMenu();
-        }
-        else
-        {
-            Console.WriteLine("No product found.");
-            ReturnToMenu();
-        }
+        products.Remove(productToRemove);
+        Console.WriteLine("Product deleted");
+        ReturnToMenu();
+    }
+    else
+    {
+        Console.WriteLine("No product found.");
+        ReturnToMenu();
     }
 }
 
@@ -184,7 +181,7 @@ void AddProduct()
             DR = DRPayload
         };
         int TitleFinder = Payload.ProductTypeId - 1;
-        Console.WriteLine($"This is a {Payload.Name} it sells for {Payload.Price}. It has {Payload.DR} many sides and it has a fancy {productTypes[TitleFinder].Title} design");
+        Console.WriteLine($"This is a {Payload.Name} it sells for ${Payload.Price}. It has {Payload.DR} sides and it has a fancy {productTypes[TitleFinder].Title} design");
         products.Add(Payload);
         ReturnToMenu();
     }
@@ -211,29 +208,21 @@ void UpdateProduct()
         if (Payload != null)
         {
             Console.WriteLine("Please enter a name for the product:");
-            string NamePayload = Console.ReadLine().Trim();
+            Payload.Name = Console.ReadLine().Trim();
             Console.WriteLine("Please enter the Price of the product:");
-            decimal PricePayload = decimal.Parse(Console.ReadLine().Trim());
+            Payload.Price = decimal.Parse(Console.ReadLine().Trim());
             Console.WriteLine("Pleae enter a Product Type Id:");
-            int ProductTypePayload = int.Parse(Console.ReadLine().Trim());
+            Payload.ProductTypeId = int.Parse(Console.ReadLine().Trim());
             Console.WriteLine("Please enter what the dice will roll:");
-            int DRPayload = int.Parse(Console.ReadLine().Trim());
-            Payload = new Product
-            {
-                Name = NamePayload,
-                Price = PricePayload,
-                ProductTypeId = ProductTypePayload,
-                DR = DRPayload
-            };
+            Payload.DR = int.Parse(Console.ReadLine().Trim());
             int TitleFinder = Payload.ProductTypeId - 1;
-            Console.WriteLine($"This is a {Payload.Name} it sells for {Payload.Price}. It has {Payload.DR} many sides and it has a fancy {productTypes[TitleFinder].Title} design");
-            ReturnToMenu();
+            Console.WriteLine($"This is a {Payload.Name} it sells for ${Payload.Price}. It has {Payload.DR} sides and it has a fancy {productTypes[TitleFinder].Title} design");
         }
         else
         {
             Console.WriteLine("No product found by that name");
-            ReturnToMenu();
         }
+        ReturnToMenu();
     }
     catch (Exception ex)
     {
