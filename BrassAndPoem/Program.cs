@@ -1,7 +1,9 @@
 ﻿
 //create a "products" variable here to include at least five Product instances. Give them appropriate ProductTypeIds.
+using System.Collections;
 using System.Diagnostics;
 using System.Net;
+using System.Reflection.Metadata.Ecma335;
 using System.Runtime.InteropServices;
 
 List<Product> products = new List<Product>
@@ -113,26 +115,133 @@ void DisplayMenu()
 
 void DisplayAllProducts()
 {
-    Console.WriteLine($"{products}{productTypes}");
-    Console.WriteLine("WIP");
+    for (int i = 0; i < products.Count; i++)
+    {
+        Console.WriteLine($"{i + 1}. {products[i].Name}");
+    }
+    // Console.WriteLine("Would you like to view a specific product? \n Enter its number \n Or enter '0' to exit");
+    // try
+    // {
+    //     int Response = int.Parse(Console.ReadLine().Trim());
+    //     switch (Response)
+    //     {
+    //         case 0:
+    //             break;
+    //         case 1:
+    //             break;
+    //         case 2:
+    //     }
+    // }
+    // catch (Exception ex)
+    // {
+
+    // }
+    ReturnToMenu();
 }
 
 void DeleteProduct()
 {
-    Console.WriteLine($"{products}{productTypes}");
-    Console.WriteLine("WIP");
+    foreach (Product product in products)
+    {
+        Console.WriteLine($"{product.Name}");
+    }
+    Console.WriteLine("Please enter the name of the product you'd like to delete");
+    string Response = Console.ReadLine().Trim();
+    Product productToRemove = products.FirstOrDefault(p => p.Name.Equals(Response, StringComparison.OrdinalIgnoreCase));
+    foreach (Product product in products)
+    {
+        if (Response == product.Name)
+        {
+            products.Remove(productToRemove);
+            Console.WriteLine("Product deleted");
+            ReturnToMenu();
+        }
+        else
+        {
+            Console.WriteLine("No product found.");
+            ReturnToMenu();
+        }
+    }
 }
 
 void AddProduct()
 {
-    Console.WriteLine($"{products}{productTypes}");
-    Console.WriteLine("WIP");
+    try
+    {
+        Console.WriteLine("Please enter a name for the product:");
+        string NamePayload = Console.ReadLine().Trim();
+        Console.WriteLine("Please enter the Price of the product:");
+        decimal PricePayload = decimal.Parse(Console.ReadLine().Trim());
+        Console.WriteLine("Pleae enter a Product Type Id:");
+        int ProductTypePayload = int.Parse(Console.ReadLine().Trim());
+        Console.WriteLine("Please enter what the dice will roll:");
+        int DRPayload = int.Parse(Console.ReadLine().Trim());
+        Product Payload = new Product
+        {
+            Name = NamePayload,
+            Price = PricePayload,
+            ProductTypeId = ProductTypePayload,
+            DR = DRPayload
+        };
+        int TitleFinder = Payload.ProductTypeId - 1;
+        Console.WriteLine($"This is a {Payload.Name} it sells for {Payload.Price}. It has {Payload.DR} many sides and it has a fancy {productTypes[TitleFinder].Title} design");
+        products.Add(Payload);
+        ReturnToMenu();
+    }
+    catch (Exception ex)
+    {
+        Console.Clear();
+        Console.WriteLine(ex);
+        Console.WriteLine("Try again");
+        AddProduct();
+    }
 }
 
 void UpdateProduct()
 {
-    Console.WriteLine($"{products}{productTypes}");
-    Console.WriteLine("WIP");
+    try
+    {
+        foreach (Product product in products)
+        {
+            Console.WriteLine($"{product.Name}");
+        }
+        Console.WriteLine("Please enter the name of the product you'd like to edit");
+        string Response = Console.ReadLine().Trim();
+        Product Payload = products.FirstOrDefault(p => p.Name.Equals(Response, StringComparison.OrdinalIgnoreCase));
+        if (Payload != null)
+        {
+            Console.WriteLine("Please enter a name for the product:");
+            string NamePayload = Console.ReadLine().Trim();
+            Console.WriteLine("Please enter the Price of the product:");
+            decimal PricePayload = decimal.Parse(Console.ReadLine().Trim());
+            Console.WriteLine("Pleae enter a Product Type Id:");
+            int ProductTypePayload = int.Parse(Console.ReadLine().Trim());
+            Console.WriteLine("Please enter what the dice will roll:");
+            int DRPayload = int.Parse(Console.ReadLine().Trim());
+            Payload = new Product
+            {
+                Name = NamePayload,
+                Price = PricePayload,
+                ProductTypeId = ProductTypePayload,
+                DR = DRPayload
+            };
+            int TitleFinder = Payload.ProductTypeId - 1;
+            Console.WriteLine($"This is a {Payload.Name} it sells for {Payload.Price}. It has {Payload.DR} many sides and it has a fancy {productTypes[TitleFinder].Title} design");
+            ReturnToMenu();
+        }
+        else
+        {
+            Console.WriteLine("No product found by that name");
+            ReturnToMenu();
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.Clear();
+        Console.WriteLine(ex);
+        Console.WriteLine("Try again");
+        AddProduct();
+    }
 }
 
 void ReturnToMenu()
