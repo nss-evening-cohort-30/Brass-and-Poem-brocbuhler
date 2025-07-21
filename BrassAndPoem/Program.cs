@@ -1,5 +1,8 @@
 ﻿
 //create a "products" variable here to include at least five Product instances. Give them appropriate ProductTypeIds.
+using System.Net;
+using System.Runtime.InteropServices;
+
 List<Product> products = new List<Product>
  {
     new Product
@@ -65,7 +68,17 @@ List<ProductType> productTypes = new List<ProductType>
 
 void DisplayMenu()
 {
-    throw new NotImplementedException();
+    try
+    {
+        Console.WriteLine("Please Choose one of the following");
+    }
+    catch (Exception ex)
+    {
+        Console.Clear();
+        Console.WriteLine(ex);
+        Console.WriteLine("Error occured");
+        ReturnToMenu();
+    }
 }
 
 void DisplayAllProducts(List<Product> products, List<ProductType> productTypes)
@@ -86,6 +99,38 @@ void AddProduct(List<Product> products, List<ProductType> productTypes)
 void UpdateProduct(List<Product> products, List<ProductType> productTypes)
 {
     throw new NotImplementedException();
+}
+
+void ReturnToMenu()
+{
+    try
+    {
+        Console.WriteLine("Would you like to return to the menu? \n ( 'Y' or 'N' )");
+        char Response = char.ToUpper(char.Parse(Console.ReadLine()));
+        switch (Response)
+        {
+            case 'Y':
+                Console.Clear();
+                DisplayMenu();
+                break;
+            case 'N':
+                Console.Clear();
+                Console.WriteLine("Sorry to see you go!");
+                break;
+            default:
+                Console.Clear();
+                Console.WriteLine("Response must be a character of either: \n ( 'Y' or 'N' )");
+                ReturnToMenu();
+                break;
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.Clear();
+        Console.WriteLine(ex);
+        Console.WriteLine("Response must be a character of either: \n ( 'Y' or 'N' )");
+        ReturnToMenu();
+    }
 }
 
 // don't move or change this!
