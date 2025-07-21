@@ -1,9 +1,9 @@
 //create your Product class here
 public class Product
 {
-  public string DiceName { get; set; }
-  public double Price { get; set; }
-  public ProductType Type { get; set; }
+  public string Name { get; set; }
+  public decimal Price { get; set; }
+  public int ProductTypeId { get; set; }
   public int DR
   {
     get { return DR; }
