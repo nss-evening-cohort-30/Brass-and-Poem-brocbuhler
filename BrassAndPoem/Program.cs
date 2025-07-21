@@ -8,35 +8,35 @@ List<Product> products = new List<Product>
  {
     new Product
     {
-        DiceName = "Lightning 20",
-        Price = 5.5,
+        Name = "Lightning 20",
+        Price = 51,
         ProductTypeId = 3,
         DR = 20
     },
     new Product
     {
-        DiceName = "Hammer",
+        Name = "Hammer",
         Price = 1,
         ProductTypeId = 1,
         DR = 12
     },
     new Product
     {
-        DiceName = "Lucky Swing",
+        Name = "Lucky Swing",
         Price = 23,
         ProductTypeId = 2,
         DR = 20
     },
     new Product
     {
-        DiceName = "Fates Finder",
-        Price = 2.3,
+        Name = "Fates Finder",
+        Price = 23,
         ProductTypeId = 2,
         DR = 10
     },
     new Product
     {
-        DiceName = "Toothpick",
+        Name = "Toothpick",
         Price = 7,
         ProductTypeId = 3,
         DR = 4
@@ -49,17 +49,17 @@ List<ProductType> productTypes = new List<ProductType>
     new ProductType
     {
         Id = 1,
-        Design = "Brass",
+        Title = "Brass",
     },
     new ProductType
     {
         Id = 2,
-        Design = "Poem",
+        Title = "Poem",
     },
     new ProductType
     {
         Id = 3,
-        Design = "Sparky",
+        Title = "Sparky",
     }
 };
 
